@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1인 연습 모드 - 테트리스 배틀</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="main-header">
+            <h1>🎮 1인 연습 모드</h1>
+            <p>혼자서 연습하세요!</p>
+        </div>
+
+        <!-- 게임 영역 -->
+        <div class="game-area">
+            <!-- 메인 게임판 -->
+            <div class="game-main">
+                <canvas id="gameCanvas" class="game-canvas"></canvas>
+                
+                <div class="flex gap-1 mt-2">
+                    <button class="btn btn-primary" id="startBtn" style="flex: 1;">게임 시작</button>
+                    <button class="btn btn-secondary" id="pauseBtn" style="flex: 1;" disabled>일시정지</button>
+                </div>
+                
+                <div class="flex gap-1 mt-1">
+                    <button class="btn btn-secondary" id="backBtn" style="flex: 1;">메인으로</button>
+                </div>
+            </div>
+
+            <!-- 사이드바 -->
+            <div class="game-sidebar">
+                <!-- 점수판 -->
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-label">점수</div>
+                        <div class="stat-value" id="score">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">레벨</div>
+                        <div class="stat-value" id="level">1</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">줄</div>
+                        <div class="stat-value" id="lines">0</div>
+                    </div>
+                </div>
+
+                <!-- 최고 점수 -->
+                <div class="card">
+                    <div class="card-title">🏆 최고 점수</div>
+                    <div class="stat-value text-warning" id="bestScore">0</div>
+                </div>
+
+                <!-- 다음 블록 -->
+                <div class="next-piece-container">
+                    <h3>다음 블록</h3>
+                    <canvas id="nextCanvas"></canvas>
+                </div>
+
+                <!-- 조작법 -->
+                <div class="controls-help">
+                    <h3>⌨️ 조작법</h3>
+                    <p>← → : 좌우 이동</p>
+                    <p>↑ : 회전</p>
+                    <p>↓ : 빠르게 내리기</p>
+                    <p>Space : 바로 떨어뜨리기</p>
+                    <p>P : 일시정지</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 게임 오버 모달 -->
+    <div class="modal" id="gameOverModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🎮 게임 오버!</h2>
+            </div>
+            <div class="modal-body">
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-label">최종 점수</div>
+                        <div class="stat-value" id="finalScore">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">레벨</div>
+                        <div class="stat-value" id="finalLevel">1</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">제거한 줄</div>
+                        <div class="stat-value" id="finalLines">0</div>
+                    </div>
+                </div>
+                
+                <div id="newRecordMsg" class="text-center mt-3" style="display: none;">
+                    <h3 class="text-warning">🎉 신기록 달성!</h3>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="restartBtn">다시 하기</button>
+                <button class="btn btn-secondary" id="mainMenuBtn">메인으로</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/tetris.js"></script>
+    <script src="js/practice.js"></script>
+</body>
+</html>

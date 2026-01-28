@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대기실 - 테트리스 배틀</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="main-header">
+            <h1>🚪 대기실</h1>
+            <p>게임 시작을 기다리는 중...</p>
+        </div>
+
+        <!-- 방 정보 -->
+        <div class="card" style="max-width: 600px; margin: 0 auto 30px;">
+            <div class="card-title text-center">
+                🎯 방 정보
+            </div>
+            <div class="card-body">
+                <div class="flex flex-between mb-2">
+                    <span>방 코드:</span>
+                    <span class="text-primary" style="font-size: 24px; font-weight: bold;" id="roomCodeDisplay"></span>
+                </div>
+                <button class="btn btn-secondary" id="copyCodeBtn" style="width: 100%;">
+                    📋 방 코드 복사
+                </button>
+                
+                <div class="flex flex-between mt-3">
+                    <span>현재 인원:</span>
+                    <span id="playerCount" class="text-success" style="font-size: 20px; font-weight: bold;">0/4</span>
+                </div>
+                
+                <div class="flex flex-between mt-2">
+                    <span>방장:</span>
+                    <span id="hostName" class="text-warning"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 플레이어 목록 -->
+        <div class="card" style="max-width: 600px; margin: 0 auto 30px;">
+            <div class="card-title text-center">
+                👥 플레이어 목록
+            </div>
+            <div class="card-body">
+                <ul class="player-list" id="playerList">
+                    <!-- 동적으로 생성됨 -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- 버튼 영역 -->
+        <div class="flex flex-center gap-2" style="max-width: 600px; margin: 0 auto;">
+            <button class="btn btn-success" id="startGameBtn" style="flex: 1; display: none;">
+                🎮 게임 시작
+            </button>
+            <button class="btn btn-danger" id="leaveRoomBtn" style="flex: 1;">
+                🚪 방 나가기
+            </button>
+        </div>
+
+        <!-- 카운트다운 -->
+        <div id="countdownOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; display: none; align-items: center; justify-content: center;">
+            <div style="text-align: center;">
+                <div id="countdownNumber" style="font-size: 120px; font-weight: bold; color: #667eea;">5</div>
+                <div style="font-size: 30px; color: rgba(255,255,255,0.7);">게임 시작까지...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script>
+        if (typeof firebase !== 'undefined') {
+            initFirebase();
+        }
+    </script>
+    <script src="js/waiting.js"></script>
+</body>
+</html>
