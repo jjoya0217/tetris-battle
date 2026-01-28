@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 테트리스 배틀</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <header class="header">
+            <h1>🎮 테트리스 배틀</h1>
+            <p class="subtitle">친구와 온라인 대전!</p>
+        </header>
+
+        <!-- 닉네임 설정 -->
+        <div class="nickname-section" id="nicknameSection">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">👤</span>
+                    <h2>닉네임 변경</h2>
+                </div>
+                <div class="card-body">
+                    <p>현재 닉네임: <strong id="currentNickname">설정되지 않음</strong></p>
+                    <input type="text" id="nicknameInput" placeholder="닉네임 입력 (2-10자)" maxlength="10">
+                    <button class="btn btn-primary" onclick="setNickname()">변경</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 환영 메시지 -->
+        <div class="welcome-section" id="welcomeSection" style="display: none;">
+            <div class="welcome-card">
+                <h2>환영합니다, <span id="welcomeName"></span>님!</h2>
+            </div>
+        </div>
+
+        <!-- 메뉴 그리드 -->
+        <div class="menu-grid">
+            <!-- 1인 연습 -->
+            <div class="menu-card" onclick="goToPractice()">
+                <div class="menu-icon">🎯</div>
+                <h3>1인 연습</h3>
+                <p>혼자서 연습하세요</p>
+                <button class="btn btn-primary">시작하기</button>
+            </div>
+
+            <!-- 방 만들기 -->
+            <div class="menu-card" onclick="openCreateRoomModal()">
+                <div class="menu-icon">🎯</div>
+                <h3>방 만들기</h3>
+                <p>친구를 초대하세요</p>
+                <button class="btn btn-primary">방 만들기</button>
+            </div>
+
+            <!-- 방 참가하기 -->
+            <div class="menu-card" onclick="openJoinRoomModal()">
+                <div class="menu-icon">🔗</div>
+                <h3>방 참가하기</h3>
+                <p>방 코드 입력</p>
+                <button class="btn btn-primary">참가하기</button>
+            </div>
+
+            <!-- 순위표 -->
+            <div class="menu-card" onclick="openLeaderboardModal()">
+                <div class="menu-icon">📊</div>
+                <h3>순위표</h3>
+                <p>최고 기록 보기</p>
+                <button class="btn btn-primary">보기</button>
+            </div>
+        </div>
+
+        <!-- 내 전적 -->
+        <div class="stats-section" id="statsSection" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">📈</span>
+                    <h2>내 전적</h2>
+                </div>
+                <div class="card-body">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">총 게임</div>
+                            <div class="stat-value" id="totalGames">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">승리</div>
+                            <div class="stat-value" id="totalWins">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">승률</div>
+                            <div class="stat-value" id="winRate">0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 방 만들기 모달 -->
+    <div id="createRoomModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🎯 방 만들기</h2>
+                <span class="modal-close" onclick="closeModal('createRoomModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>플레이어 인원을 선택하세요</p>
+                <div class="player-count-grid">
+                    <button class="player-count-btn" onclick="createRoom(2)">2명</button>
+                    <button class="player-count-btn" onclick="createRoom(3)">3명</button>
+                    <button class="player-count-btn" onclick="createRoom(4)">4명</button>
+                </div>
+                <button class="btn btn-secondary modal-btn" onclick="closeModal('createRoomModal')">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 방 참가하기 모달 -->
+    <div id="joinRoomModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🔗 방 참가하기</h2>
+                <span class="modal-close" onclick="closeModal('joinRoomModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>친구가 공유한 방 코드를 입력하세요</p>
+                <input type="text" id="roomCodeInput" class="room-code-input" placeholder="방 코드 입력" maxlength="6">
+                <button class="btn btn-primary modal-btn" onclick="joinRoom()">참가하기</button>
+                <button class="btn btn-secondary modal-btn" onclick="closeModal('joinRoomModal')">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 순위표 모달 -->
+    <div id="leaderboardModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>📊 순위표</h2>
+                <span class="modal-close" onclick="closeModal('leaderboardModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="leaderboard-tabs">
+                    <button class="tab-btn active" onclick="switchLeaderboard('bestScore')">최고 점수</button>
+                    <button class="tab-btn" onclick="switchLeaderboard('totalWins')">총 승리</button>
+                </div>
+                <div id="leaderboardContent" class="leaderboard-content">
+                    <div class="loading">불러오는 중...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script>
+        // Firebase 초기화
+        if (typeof firebase !== 'undefined') {
+            initFirebase();
+        } else {
+            console.error('Firebase SDK 로드 실패');
+        }
+    </script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
