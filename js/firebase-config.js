@@ -3,14 +3,13 @@
 // ============================================
 
 const firebaseConfig = {
-    apiKey: "AIzaSyALcTl2JxZeosfyvBNdi6yq-6h0ESz__1s",
-    authDomain: "tetris-battle-3e5d0.firebaseapp.com",
-    databaseURL: "https://tetris-battle-3e5d0-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tetris-battle-3e5d0",
-    storageBucket: "tetris-battle-3e5d0.firebasestorage.app",
-    messagingSenderId: "626492408760",
-    appId: "1:626492408760:web:fc283479039bf3d75754d4",
-    measurementId: "G-E6YMP1K1WV"
+  apiKey: "AIzaSyAethUVhBXjlgTEw_jyT4Mxj33EWBTptWU",
+  authDomain: "tetris-battle-602ec.firebaseapp.com",
+  databaseURL: "https://tetris-battle-602ec-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tetris-battle-602ec",
+  storageBucket: "tetris-battle-602ec.firebasestorage.app",
+  messagingSenderId: "932101718212",
+  appId: "1:932101718212:web:bb850090307ba78c8dc991"
 };
 
 // Firebase 초기화
